@@ -1,0 +1,2 @@
+export const UNAUTHENTICATED = 'UNAUTHENTICATED';
+export const BAD_REQUEST = 'BAD_REQUEST';

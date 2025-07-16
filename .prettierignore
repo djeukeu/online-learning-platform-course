@@ -11,7 +11,7 @@ logs
 # Dependency directories
 node_modules/
 build/
-mysqldata/
+pgdata/
 miniodata/
 data/
 
@@ -56,5 +56,7 @@ experimental/**/*.db
 .next
 .nuxt
 coverage
+
+/src/generated/prisma
 
 /src/generated/prisma

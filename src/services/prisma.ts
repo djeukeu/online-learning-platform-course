@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+
 import config from 'src/config';
 import log from 'src/logger';
 

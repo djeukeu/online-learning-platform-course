@@ -6,6 +6,7 @@ import { app } from 'src/services/express';
 import log from 'src/logger';
 import { Prisma } from 'src/services/prisma';
 import courseRouter from './routes/course';
+import authorizeRequest from './middleware/authorizeRequest';
 
 const server = async () => {
     const httpServer = createServer(app);
@@ -14,7 +15,7 @@ const server = async () => {
     await prisma.start();
 
     app.get('/health', healthcheck);
-    app.use('/course', courseRouter);
+    app.use('/course', authorizeRequest, courseRouter);
 
     new Promise<void>((resolve) =>
         httpServer.listen({ port: config.port }, resolve)

@@ -8,10 +8,30 @@ datasource db {
 }
 
 model Course {
-  id        String   @id @default(uuid())
-  name      String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String       @id @default(uuid())
+  title        String       @unique
+  description  String
+  price        Decimal
+  intructor_id String
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  Enrollment   Enrollment[]
 
+  @@index([intructor_id])
   @@map("course")
+}
+
+model Enrollment {
+  id          String   @id @default(uuid())
+  user_id     String
+  course      Course   @relation(fields: [course_id], references: [id])
+  course_id   String
+  enrolled_at DateTime
+  payment_id  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([user_id])
+  @@index([payment_id])
+  @@map("enrollment")
 }

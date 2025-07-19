@@ -12,9 +12,17 @@ export const getCourseSchema = checkSchema(
 
 export const postCourseSchema = checkSchema(
     {
-        name: {
-            errorMessage: 'Invalid Name',
+        title: {
+            errorMessage: 'Invalid title',
             isString: true,
+        },
+        description: {
+            errorMessage: 'Invalid description',
+            isString: true,
+        },
+        price: {
+            errorMessage: 'Invalid price',
+            isDecimal: true,
         },
     },
     ['body']

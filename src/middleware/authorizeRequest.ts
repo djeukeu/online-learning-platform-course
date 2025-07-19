@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Response, Request, NextFunction } from 'express';
-import { verify } from 'jsonwebtoken';
+import { Response, NextFunction } from 'express';
+import { JwtPayload, verify } from 'jsonwebtoken';
 
 import config from 'src/config';
 import { UNAUTHENTICATED } from 'src/constants';
 
+type Payload = { id: string; role: string } & JwtPayload;
+
 const authorizeRequest = async (
-    req: Request,
+    req: any,
     res: Response,
     next: NextFunction
 ) => {
@@ -20,7 +22,8 @@ const authorizeRequest = async (
     }
     const token = authorization.replace('Bearer ', '');
     try {
-        verify(token, config.secret_key as string);
+        const decoded = verify(token, config.secret_key as string) as Payload;
+        req.user = { id: decoded.id, role: decoded.role };
         next();
     } catch (err: any) {
         res.status(401).json({

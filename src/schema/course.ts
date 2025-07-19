@@ -34,9 +34,19 @@ export const patchCourseSchema = checkSchema(
             errorMessage: 'Invalid ID',
             isString: true,
         },
-        name: {
-            errorMessage: 'Invalid Name',
+        title: {
+            errorMessage: 'Invalid title',
             isString: true,
+            optional: true,
+        },
+        description: {
+            errorMessage: 'Invalid description',
+            isString: true,
+            optional: true,
+        },
+        price: {
+            errorMessage: 'Invalid price',
+            isDecimal: true,
             optional: true,
         },
     },

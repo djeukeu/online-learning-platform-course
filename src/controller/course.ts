@@ -46,23 +46,32 @@ export const postCourseController = async (req: any, res: Response) => {
         description: data.description,
         price: data.price,
         intructor_id: req.user.id,
-        name: data.name,
     };
     const course = await createCourse(newCourse as any);
     res.status(200).json({ course });
 };
 
-export const patchCourseController = async (req: Request, res: Response) => {
+export const patchCourseController = async (req: any, res: Response) => {
     const result = validationResult(req);
     if (!result.isEmpty()) {
         res.status(400).json({ errcode: BAD_REQUEST, message: result.array() });
         return;
     }
+    if (req.user.role != 'INSTRUCTOR') {
+        res.status(400).json({
+            errcode: UNAUTHORIZED,
+            message: 'Acces restricted',
+        });
+    }
+
     const data = req.body;
     const updatedCourse = {
         id: data.id,
-        name: data.name,
+        title: data.title,
+        description: data.description,
+        price: data.price,
     };
+
     const course = await updateCourse(updatedCourse as any);
     res.status(200).json({ course });
 };

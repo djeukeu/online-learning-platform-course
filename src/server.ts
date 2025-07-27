@@ -7,16 +7,12 @@ import log from 'src/logger';
 import { Prisma } from 'src/services/prisma';
 import courseRouter from './routes/course';
 import authorizeRequest from './middleware/authorizeRequest';
-import { kafkaConsumer } from './kafka';
-import enrollHandler from './handlers/enroll';
 
 const server = async () => {
     const httpServer = createServer(app);
 
     const prisma = new Prisma();
     await prisma.start();
-
-    await kafkaConsumer(enrollHandler);
 
     app.get('/health', healthcheck);
     app.use('/api/course', authorizeRequest, courseRouter);

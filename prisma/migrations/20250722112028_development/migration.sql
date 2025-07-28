@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "enrollment" ALTER COLUMN "enrolled_at" SET DEFAULT CURRENT_TIMESTAMP;
